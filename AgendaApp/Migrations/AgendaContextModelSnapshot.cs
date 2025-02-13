@@ -24,17 +24,15 @@ namespace AgendaApp.Migrations
 
             modelBuilder.Entity("AgendaApp.Entities.Evento", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("Dia")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("IntervaloId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("IntervaloId")
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Titulo")
                         .IsRequired()
@@ -49,11 +47,9 @@ namespace AgendaApp.Migrations
 
             modelBuilder.Entity("AgendaApp.Entities.Intervalo", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Comeco")
                         .IsRequired()
