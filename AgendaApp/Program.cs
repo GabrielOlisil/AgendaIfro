@@ -1,3 +1,4 @@
+using AgendaApp.Configuration;
 using AgendaApp.Context;
 using AgendaApp.Services;
 
@@ -7,8 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-builder.Services.AddScoped<IntervaloService>();
-builder.Services.AddScoped<CategoriaService>();
+
+builder.Services.AddAppServices();
 
 builder.Services.AddHealthChecks();
 

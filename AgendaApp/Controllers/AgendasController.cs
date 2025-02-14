@@ -52,20 +52,35 @@ public class AgendasController(
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<Agenda>> CreateAgenda(AgendaCreateDto agendaRequest)
     {
-        var agenda = new Agenda()
+        Agenda agenda = null;
+        try
         {
-            Id = Guid.Empty,
-            Titulo = agendaRequest.Titulo,
-            Descricao = agendaRequest.Descricao,
-            Dia = agendaRequest.Dia,
-            Intervalo = await intervaloService.FindIntervalo(agendaRequest.IntervaloId),
-            Categoria = await categoriaService.FindCategoria(agendaRequest.CategoriaId),
-        };
+            agenda = new Agenda()
+            {
+                Id = Guid.Empty,
+                Titulo = agendaRequest.Titulo,
+                Descricao = agendaRequest.Descricao,
+                Dia = agendaRequest.Dia,
+                Intervalo = await intervaloService.FindIntervalo(agendaRequest.IntervaloId),
+            };
 
-        context.Agendamentos.Add(agenda);
+            if (agendaRequest.CategoriaId is not null)
+            {
+                agenda.Categoria = await categoriaService.FindCategoria(agendaRequest.CategoriaId!.Value);
+            }
+            
+            context.Agendamentos.Add(agenda);
 
 
-        await context.SaveChangesAsync();
+            await context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Dados foram enviados no formato inválido\n" + e.Message);
+        }
+        
+
+  
 
         return CreatedAtAction(nameof(GetAgendaById), new { id = agenda.Id }, agenda);
     }
@@ -135,7 +150,7 @@ public class AgendasController(
     {
         var agenda = await context.Agendamentos.FindAsync(id);
 
-        if (agenda is null) return NotFound();
+        if (agenda is null) return NotFound("Não foi encontrada um agendamento com esse id");
 
         context.Agendamentos.Remove(agenda);
 

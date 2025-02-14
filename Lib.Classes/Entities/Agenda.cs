@@ -12,5 +12,5 @@ public class Agenda
     [Required]
     public Intervalo Intervalo { get; set; }
 
-    public Categoria Categoria { get; set; }
+    public Categoria? Categoria { get; set; }
 }

@@ -28,7 +28,7 @@ namespace AgendaApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("CategoriaId")
+                    b.Property<Guid?>("CategoriaId")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Descricao")
@@ -96,9 +96,7 @@ namespace AgendaApp.Migrations
                 {
                     b.HasOne("Lib.Classes.Entities.Categoria", "Categoria")
                         .WithMany()
-                        .HasForeignKey("CategoriaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoriaId");
 
                     b.HasOne("Lib.Classes.Entities.Intervalo", "Intervalo")
                         .WithMany()
