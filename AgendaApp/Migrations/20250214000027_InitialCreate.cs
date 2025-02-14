@@ -15,10 +15,26 @@ namespace AgendaApp.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Categorias",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Label = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categorias", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Intervalos",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Label = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Comeco = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Fim = table.Column<string>(type: "longtext", nullable: false)
@@ -31,20 +47,29 @@ namespace AgendaApp.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Eventos",
+                name: "Agendamentos",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Titulo = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
+                    Descricao = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Dia = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    IntervaloId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                    IntervaloId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    CategoriaId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Eventos", x => x.Id);
+                    table.PrimaryKey("PK_Agendamentos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Eventos_Intervalos_IntervaloId",
+                        name: "FK_Agendamentos_Categorias_CategoriaId",
+                        column: x => x.CategoriaId,
+                        principalTable: "Categorias",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Agendamentos_Intervalos_IntervaloId",
                         column: x => x.IntervaloId,
                         principalTable: "Intervalos",
                         principalColumn: "Id",
@@ -53,8 +78,13 @@ namespace AgendaApp.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Eventos_IntervaloId",
-                table: "Eventos",
+                name: "IX_Agendamentos_CategoriaId",
+                table: "Agendamentos",
+                column: "CategoriaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Agendamentos_IntervaloId",
+                table: "Agendamentos",
                 column: "IntervaloId");
         }
 
@@ -62,7 +92,10 @@ namespace AgendaApp.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Eventos");
+                name: "Agendamentos");
+
+            migrationBuilder.DropTable(
+                name: "Categorias");
 
             migrationBuilder.DropTable(
                 name: "Intervalos");

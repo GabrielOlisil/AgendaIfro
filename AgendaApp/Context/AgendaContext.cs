@@ -1,12 +1,13 @@
-using AgendaApp.Entities;
+using Lib.Classes.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace AgendaApp.Context;
 
 public class AgendaContext(IConfiguration configuration) : DbContext
 {
-    public DbSet<Evento> Eventos { get; set; }
+    public DbSet<Agenda> Agendamentos { get; set; }
     public DbSet<Intervalo> Intervalos { get; set; }
+    public DbSet<Categoria> Categorias { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

@@ -22,11 +22,18 @@ namespace AgendaApp.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("AgendaApp.Entities.Evento", b =>
+            modelBuilder.Entity("Lib.Classes.Entities.Agenda", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
+
+                    b.Property<Guid>("CategoriaId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("Dia")
                         .HasColumnType("datetime(6)");
@@ -40,12 +47,29 @@ namespace AgendaApp.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoriaId");
+
                     b.HasIndex("IntervaloId");
 
-                    b.ToTable("Eventos");
+                    b.ToTable("Agendamentos");
                 });
 
-            modelBuilder.Entity("AgendaApp.Entities.Intervalo", b =>
+            modelBuilder.Entity("Lib.Classes.Entities.Categoria", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categorias");
+                });
+
+            modelBuilder.Entity("Lib.Classes.Entities.Intervalo", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -59,18 +83,30 @@ namespace AgendaApp.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.HasKey("Id");
 
                     b.ToTable("Intervalos");
                 });
 
-            modelBuilder.Entity("AgendaApp.Entities.Evento", b =>
+            modelBuilder.Entity("Lib.Classes.Entities.Agenda", b =>
                 {
-                    b.HasOne("AgendaApp.Entities.Intervalo", "Intervalo")
+                    b.HasOne("Lib.Classes.Entities.Categoria", "Categoria")
+                        .WithMany()
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Lib.Classes.Entities.Intervalo", "Intervalo")
                         .WithMany()
                         .HasForeignKey("IntervaloId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Categoria");
 
                     b.Navigation("Intervalo");
                 });
