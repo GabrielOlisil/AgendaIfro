@@ -34,7 +34,7 @@ public class IntervalosController(AgendaContext context, IntervaloService interv
     [HttpGet]
     public async Task<List<Intervalo>> ListIntervalos()
     {
-        var data = context.Intervalos.ToListAsync();
+        var data = context.Intervalos.OrderBy(i => i.IndexAula).ToListAsync();
 
         return await data;
     }
@@ -49,14 +49,19 @@ public class IntervalosController(AgendaContext context, IntervaloService interv
             Id = Guid.Empty,
             Label = intervaloRequest.Label,
             Comeco = intervaloRequest.Comeco,
-            Fim = intervaloRequest.Fim
         };
 
         context.Intervalos.Add(intervalo);
-        
-  
 
-        await context.SaveChangesAsync();
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Dados enviados da forma errada");
+        }
 
         return CreatedAtAction(nameof(GetIntervaloById), new { id = intervalo.Id }, intervalo);
     }
@@ -79,11 +84,7 @@ public class IntervalosController(AgendaContext context, IntervaloService interv
             intervalo.Comeco = intervaloUpdateDto.Comeco;
         }
         
-        if (intervaloUpdateDto.Fim is not null)
-        {
-            intervalo.Fim = intervaloUpdateDto.Fim;
-        }
-
+     
         context.Intervalos.Update(intervalo);
 
         

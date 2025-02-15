@@ -61,7 +61,7 @@ public class AgendasController(
                 Titulo = agendaRequest.Titulo,
                 Descricao = agendaRequest.Descricao,
                 Dia = agendaRequest.Dia,
-                Intervalo = await intervaloService.FindIntervalo(agendaRequest.IntervaloId),
+                Intervalo = await intervaloService.FindIntervalo(agendaRequest.IntervaloId!.Value),
             };
 
             if (agendaRequest.CategoriaId is not null)
