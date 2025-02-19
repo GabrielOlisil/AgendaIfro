@@ -16,7 +16,7 @@ public class IntervalosController(AgendaContext context, IntervaloService interv
    
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Intervalo>> GetIntervaloById(Guid id)
+    public async Task<ActionResult<Intervalo>> GetIntervaloById(int id)
     {
         Intervalo? intervalo = null;
         try
@@ -46,7 +46,6 @@ public class IntervalosController(AgendaContext context, IntervaloService interv
     {
         var intervalo = new Intervalo()
         {
-            Id = Guid.Empty,
             Label = intervaloRequest.Label,
             Comeco = intervaloRequest.Comeco,
         };
@@ -67,7 +66,7 @@ public class IntervalosController(AgendaContext context, IntervaloService interv
     }
 
     [HttpPatch("{id}")]
-    public async Task<ActionResult<Intervalo>> UpdateIntervalo(Guid id, IntervaloUpdateDto intervaloUpdateDto)
+    public async Task<ActionResult<Intervalo>> UpdateIntervalo(int id, IntervaloUpdateDto intervaloUpdateDto)
     {
 
         var intervalo = await context.Intervalos.FindAsync(id);
@@ -100,7 +99,7 @@ public class IntervalosController(AgendaContext context, IntervaloService interv
 
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteIntervalo(Guid id)
+    public async Task<IActionResult> DeleteIntervalo(int id)
     {
         var intervalo = await context.Intervalos.FindAsync(id);
 

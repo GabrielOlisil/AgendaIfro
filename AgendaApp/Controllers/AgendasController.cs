@@ -17,7 +17,7 @@ public class AgendasController(
     CategoriaService categoriaService) : ControllerBase
 {
     [HttpGet("{id}")]
-    public async Task<ActionResult<Agenda>> GetAgendaById(Guid id)
+    public async Task<ActionResult<Agenda>> GetAgendaById(int id)
     {
         var agenda = await context.Agendamentos.Include(a => a.Intervalo)
             .Include(a => a.Categoria)
@@ -57,7 +57,6 @@ public class AgendasController(
         {
             agenda = new Agenda()
             {
-                Id = Guid.Empty,
                 Titulo = agendaRequest.Titulo,
                 Descricao = agendaRequest.Descricao,
                 Dia = agendaRequest.Dia,
@@ -86,7 +85,7 @@ public class AgendasController(
     }
 
     [HttpPatch("{id}")]
-    public async Task<ActionResult<Categoria>> UpdateAgenda(Guid id, AgendaUpdateDto agendaUpdateDto)
+    public async Task<ActionResult<Categoria>> UpdateAgenda(int id, AgendaUpdateDto agendaUpdateDto)
     {
         var agenda = await context.Agendamentos.FindAsync(id);
 
@@ -146,7 +145,7 @@ public class AgendasController(
 
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteAgenda(Guid id)
+    public async Task<IActionResult> DeleteAgenda(int id)
     {
         var agenda = await context.Agendamentos.FindAsync(id);
 

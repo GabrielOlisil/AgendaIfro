@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -20,7 +21,8 @@ namespace AgendaApp.Migrations
                 name: "Categorias",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Label = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
@@ -34,7 +36,8 @@ namespace AgendaApp.Migrations
                 name: "Intervalos",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     IndexAula = table.Column<int>(type: "int", nullable: false),
                     Label = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
@@ -51,14 +54,15 @@ namespace AgendaApp.Migrations
                 name: "Agendamentos",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Titulo = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Descricao = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Dia = table.Column<DateTime>(type: "DATE", nullable: false),
-                    IntervaloId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    CategoriaId = table.Column<Guid>(type: "char(36)", nullable: true, collation: "ascii_general_ci")
+                    IntervaloId = table.Column<int>(type: "int", nullable: false),
+                    CategoriaId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,19 +86,19 @@ namespace AgendaApp.Migrations
                 columns: new[] { "Id", "Comeco", "IndexAula", "Label" },
                 values: new object[,]
                 {
-                    { new Guid("319e5fae-20c9-4166-8009-329a9a5dd4d1"), "10:00", 2, "3º Aula" },
-                    { new Guid("47afdfbd-b19b-4f64-a491-b12d4a5b6864"), "14:45", 6, "3º Aula" },
-                    { new Guid("48353c00-1b14-490c-86c6-d954c58877e7"), "08:05", 0, "1º Aula" },
-                    { new Guid("5fd6654a-41d1-4e7e-91e0-b9db388c533b"), "08:55", 1, "2º Aula" },
-                    { new Guid("6e503222-a32a-4903-9007-af8ecbab563f"), "19:00", 9, "1º Aula" },
-                    { new Guid("8176df7d-e82f-4f60-b2e6-e57f363e3d53"), "15:50", 7, "4º Aula" },
-                    { new Guid("9f23cf25-2183-4a7e-8e83-6a5e46cdb847"), "10:5", 3, "4º Aula" },
-                    { new Guid("bf837f59-0779-48d9-b5ca-268061248ebb"), "22:55", 11, "3º Aula" },
-                    { new Guid("c6c1f321-b3d0-4a65-bc2f-191205f722f2"), "16:40", 8, "5º Aula" },
-                    { new Guid("d5aa0deb-ac8f-4c41-9b65-1980ef5c60f4"), "21:45", 12, "4º Aula" },
-                    { new Guid("d9ec58f2-9a57-4c35-8695-b47693477b4a"), "13:55", 5, "2º Aula" },
-                    { new Guid("ddeb3124-a603-4c58-9a96-3f743ea89d6b"), "13:05", 4, "1º Aula" },
-                    { new Guid("fca35fc6-a9c3-4d89-a7a9-81c5058e3198"), "19:50", 10, "2º Aula" }
+                    { 1, "08:05", 0, "1º Aula" },
+                    { 2, "08:55", 1, "2º Aula" },
+                    { 3, "10:00", 2, "3º Aula" },
+                    { 4, "10:50", 3, "4º Aula" },
+                    { 5, "13:05", 4, "1º Aula" },
+                    { 6, "13:55", 5, "2º Aula" },
+                    { 7, "14:45", 6, "3º Aula" },
+                    { 8, "15:50", 7, "4º Aula" },
+                    { 9, "16:40", 8, "5º Aula" },
+                    { 10, "19:00", 9, "1º Aula" },
+                    { 11, "19:50", 10, "2º Aula" },
+                    { 12, "22:55", 11, "3º Aula" },
+                    { 13, "21:45", 12, "4º Aula" }
                 });
 
             migrationBuilder.CreateIndex(

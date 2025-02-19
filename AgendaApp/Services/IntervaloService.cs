@@ -8,7 +8,7 @@ namespace AgendaApp.Services;
 public class IntervaloService(AgendaContext context)
 {
     
-    public async Task<Intervalo> FindIntervalo(Guid id)
+    public async Task<Intervalo> FindIntervalo(int id)
     {
         var intervalo = await context.Intervalos.FindAsync(id);
 

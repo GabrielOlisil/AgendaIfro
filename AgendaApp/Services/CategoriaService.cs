@@ -5,7 +5,7 @@ namespace AgendaApp.Services;
 
 public class CategoriaService(AgendaContext context)
 {
-    public async Task<Categoria> FindCategoria(Guid id)
+    public async Task<Categoria> FindCategoria(int id)
     {
         var categoria = await context.Categorias.FindAsync(id);
 

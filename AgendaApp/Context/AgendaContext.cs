@@ -19,6 +19,7 @@ public class AgendaContext(IConfiguration configuration) : DbContext
     {
         modelBuilder.Entity<Agenda>(e =>
         {
+            e.Property(a => a.Id).ValueGeneratedOnAdd();
             e.Property(a => a.Dia)
                 .IsRequired()
                 .HasColumnType("DATE");
@@ -32,10 +33,16 @@ public class AgendaContext(IConfiguration configuration) : DbContext
                 .HasDatabaseName("IX_Agenda_Dia");
         });
 
-        modelBuilder.Entity<Categoria>(e => { e.Property(a => a.Label).IsRequired(); });
+        modelBuilder.Entity<Categoria>(e =>
+        {
+            e.Property(a => a.Id).ValueGeneratedOnAdd();
+
+            e.Property(a => a.Label).IsRequired();
+        });
 
         modelBuilder.Entity<Intervalo>(e =>
         {
+            e.Property(a => a.Id).ValueGeneratedOnAdd();
             e.Property(a => a.Label).IsRequired();
             e.Property(a => a.Comeco).IsRequired();
             e.HasIndex(a => a.IndexAula)
@@ -46,64 +53,72 @@ public class AgendaContext(IConfiguration configuration) : DbContext
             // Periodo Manhã
             new Intervalo
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Comeco = "08:05",
                 Label = "1º Aula",
                 IndexAula = 0
             },
             new Intervalo
             {
-                Id = Guid.NewGuid(),
+                Id = 2,
+
                 Comeco = "08:55",
                 Label = "2º Aula",
                 IndexAula = 1
             },
             new Intervalo
             {
-                Id = Guid.NewGuid(),
+                Id = 3,
+
                 Comeco = "10:00",
                 Label = "3º Aula",
                 IndexAula = 2
             },
             new Intervalo
             {
-                Id = Guid.NewGuid(),
-                Comeco = "10:5",
+                Id = 4,
+
+                Comeco = "10:50",
                 Label = "4º Aula",
                 IndexAula = 3
             },
             // Periodo Tarde
             new Intervalo
             {
-                Id = Guid.NewGuid(),
+                Id = 5,
+
                 Comeco = "13:05",
                 Label = "1º Aula",
                 IndexAula = 4
             },
             new Intervalo
             {
-                Id = Guid.NewGuid(),
+                Id = 6,
+
                 Comeco = "13:55",
                 Label = "2º Aula",
                 IndexAula = 5
             },
             new Intervalo
             {
-                Id = Guid.NewGuid(),
+                Id = 7,
+
                 Comeco = "14:45",
                 Label = "3º Aula",
                 IndexAula = 6
             },
             new Intervalo
             {
-                Id = Guid.NewGuid(),
+                Id = 8,
+
                 Comeco = "15:50",
                 Label = "4º Aula",
                 IndexAula = 7
             },
             new Intervalo
             {
-                Id =Guid.NewGuid(),
+                Id = 9,
+
                 Comeco = "16:40",
                 Label = "5º Aula",
                 IndexAula = 8
@@ -111,32 +126,37 @@ public class AgendaContext(IConfiguration configuration) : DbContext
             // Aulas Noturnas
             new Intervalo
             {
-                Id = Guid.NewGuid(),
+                Id = 10,
+
                 Comeco = "19:00",
                 Label = "1º Aula",
                 IndexAula = 9
             },
             new Intervalo
             {
-                Id = Guid.NewGuid(),
+                Id = 11,
+
                 Comeco = "19:50",
                 Label = "2º Aula",
                 IndexAula = 10
             },
             new Intervalo
             {
-                Id = Guid.NewGuid(),
+                Id = 12,
+
                 Comeco = "22:55",
                 Label = "3º Aula",
                 IndexAula = 11
             },
             new Intervalo
             {
-                Id = Guid.NewGuid(),
+                Id = 13,
+
                 Comeco = "21:45",
                 Label = "4º Aula",
                 IndexAula = 12
             }
         );
+
     }
 }

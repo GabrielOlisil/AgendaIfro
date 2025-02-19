@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AgendaApp.Migrations
 {
     [DbContext(typeof(AgendaContext))]
-    [Migration("20250214233055_InitialCreate")]
+    [Migration("20250219140127_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -27,12 +27,14 @@ namespace AgendaApp.Migrations
 
             modelBuilder.Entity("Lib.Classes.Entities.Agenda", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("int");
 
-                    b.Property<Guid?>("CategoriaId")
-                        .HasColumnType("char(36)");
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CategoriaId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Descricao")
                         .IsRequired()
@@ -41,8 +43,8 @@ namespace AgendaApp.Migrations
                     b.Property<DateTime>("Dia")
                         .HasColumnType("DATE");
 
-                    b.Property<Guid>("IntervaloId")
-                        .HasColumnType("char(36)");
+                    b.Property<int>("IntervaloId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Titulo")
                         .IsRequired()
@@ -63,9 +65,11 @@ namespace AgendaApp.Migrations
 
             modelBuilder.Entity("Lib.Classes.Entities.Categoria", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Label")
                         .IsRequired()
@@ -78,9 +82,11 @@ namespace AgendaApp.Migrations
 
             modelBuilder.Entity("Lib.Classes.Entities.Intervalo", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Comeco")
                         .IsRequired()
@@ -104,91 +110,91 @@ namespace AgendaApp.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("48353c00-1b14-490c-86c6-d954c58877e7"),
+                            Id = 1,
                             Comeco = "08:05",
                             IndexAula = 0,
                             Label = "1º Aula"
                         },
                         new
                         {
-                            Id = new Guid("5fd6654a-41d1-4e7e-91e0-b9db388c533b"),
+                            Id = 2,
                             Comeco = "08:55",
                             IndexAula = 1,
                             Label = "2º Aula"
                         },
                         new
                         {
-                            Id = new Guid("319e5fae-20c9-4166-8009-329a9a5dd4d1"),
+                            Id = 3,
                             Comeco = "10:00",
                             IndexAula = 2,
                             Label = "3º Aula"
                         },
                         new
                         {
-                            Id = new Guid("9f23cf25-2183-4a7e-8e83-6a5e46cdb847"),
-                            Comeco = "10:5",
+                            Id = 4,
+                            Comeco = "10:50",
                             IndexAula = 3,
                             Label = "4º Aula"
                         },
                         new
                         {
-                            Id = new Guid("ddeb3124-a603-4c58-9a96-3f743ea89d6b"),
+                            Id = 5,
                             Comeco = "13:05",
                             IndexAula = 4,
                             Label = "1º Aula"
                         },
                         new
                         {
-                            Id = new Guid("d9ec58f2-9a57-4c35-8695-b47693477b4a"),
+                            Id = 6,
                             Comeco = "13:55",
                             IndexAula = 5,
                             Label = "2º Aula"
                         },
                         new
                         {
-                            Id = new Guid("47afdfbd-b19b-4f64-a491-b12d4a5b6864"),
+                            Id = 7,
                             Comeco = "14:45",
                             IndexAula = 6,
                             Label = "3º Aula"
                         },
                         new
                         {
-                            Id = new Guid("8176df7d-e82f-4f60-b2e6-e57f363e3d53"),
+                            Id = 8,
                             Comeco = "15:50",
                             IndexAula = 7,
                             Label = "4º Aula"
                         },
                         new
                         {
-                            Id = new Guid("c6c1f321-b3d0-4a65-bc2f-191205f722f2"),
+                            Id = 9,
                             Comeco = "16:40",
                             IndexAula = 8,
                             Label = "5º Aula"
                         },
                         new
                         {
-                            Id = new Guid("6e503222-a32a-4903-9007-af8ecbab563f"),
+                            Id = 10,
                             Comeco = "19:00",
                             IndexAula = 9,
                             Label = "1º Aula"
                         },
                         new
                         {
-                            Id = new Guid("fca35fc6-a9c3-4d89-a7a9-81c5058e3198"),
+                            Id = 11,
                             Comeco = "19:50",
                             IndexAula = 10,
                             Label = "2º Aula"
                         },
                         new
                         {
-                            Id = new Guid("bf837f59-0779-48d9-b5ca-268061248ebb"),
+                            Id = 12,
                             Comeco = "22:55",
                             IndexAula = 11,
                             Label = "3º Aula"
                         },
                         new
                         {
-                            Id = new Guid("d5aa0deb-ac8f-4c41-9b65-1980ef5c60f4"),
+                            Id = 13,
                             Comeco = "21:45",
                             IndexAula = 12,
                             Label = "4º Aula"

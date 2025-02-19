@@ -16,7 +16,7 @@ public class CategoriasController(AgendaContext context, CategoriaService catego
    
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Categoria>> GetCategoriaById(Guid id)
+    public async Task<ActionResult<Categoria>> GetCategoriaById(int id)
     {
         Categoria? categoria = null;
 
@@ -47,7 +47,6 @@ public class CategoriasController(AgendaContext context, CategoriaService catego
     {
         var categoria = new Categoria()
         {
-            Id = Guid.Empty,
             Label = CategoriaRequest.Label!,
         };
 
@@ -61,7 +60,7 @@ public class CategoriasController(AgendaContext context, CategoriaService catego
     }
 
     [HttpPatch("{id}")]
-    public async Task<ActionResult<Categoria>> UpdateCategoria(Guid id, CategoriaUpdateDto categoriaUpdateDto)
+    public async Task<ActionResult<Categoria>> UpdateCategoria(int id, CategoriaUpdateDto categoriaUpdateDto)
     {
 
         var categoria = await context.Categorias.FindAsync(id);
@@ -88,7 +87,7 @@ public class CategoriasController(AgendaContext context, CategoriaService catego
 
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteCategoria(Guid id)
+    public async Task<IActionResult> DeleteCategoria(int id)
     {
         var categoria = await context.Categorias.FindAsync(id);
 
